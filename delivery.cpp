@@ -2,7 +2,6 @@
 using namespace std;
 
 //PROJECT UNNES DELIVERY
-struct main(){
-  
-  
+int main(){
+  cout << "Aziz Ganteng"
 };
