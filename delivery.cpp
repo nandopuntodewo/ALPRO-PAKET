@@ -2,4 +2,7 @@
 using namespace std;
 
 //PROJECT UNNES DELIVERY
-ANJAAAYYY
+struct main(){
+  
+  
+}
