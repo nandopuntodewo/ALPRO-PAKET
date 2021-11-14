@@ -1,7 +1,4 @@
 #include <iostream>
-using namespace std;
-
-#include <iostream>
 #include <string>
 
 using namespace std;
@@ -23,10 +20,19 @@ struct pencatatan{
     int tarif;
 }catatan[100];
 
-int main(){
+void input_data();
+void periksa_arsip();
 
+int main(){
+    input_data();
+    periksa_arsip();
+    return 0;
+}
+
+void input_data(){
     int i;
     cout << "----------*FORMULIR DATA PENGIRIMAN*--------" << endl;
+    // Input Pengirim
     cout << "Nama Pengirim   : ";
     cin.sync();
     getline(cin,catatan[0].pengirim.nama);
@@ -34,7 +40,7 @@ int main(){
     cout << "   1. Sumatera.    3. Kalimantan.  5. Papua." << endl;
     cout << "   2. Jawa.        4. Sulawesi.    6. Bali" << endl;
     while(true){
-        cout << "Pilih pulau asal:";
+        cout << "Pilih pulau asal: ";
         cin >> i;
         switch(i){
             case 1:
@@ -66,34 +72,36 @@ int main(){
     cout << "Alamat Pengirim : ";
     cin.sync();
     getline(cin,catatan[0].pengirim.alamat);
-    cout << endl;
+
+    // Input Penerima
+    cout << "------------------------------------------" <<  endl;
     cout << "Nama Penerima   : ";
     cin.sync();
     getline(cin,catatan[0].penerima.nama);
-    cout << "Pulau Tujuan    : ";
+    cout << "Pulau Tujuan    : " << endl;
     cout << "   1. Sumatera.    3. Kalimantan.  5. Papua." << endl;
     cout << "   2. Jawa.        4. Sulawesi.    6. Bali" << endl;
     while(true){
-        cout << "Pilih pulau tujuan:";
+        cout << "Pilih pulau tujuan: ";
         cin >> i;
         switch(i){
             case 1:
-                catatan[0].pengirim.pulau = "Sumatera";
+                catatan[0].penerima.pulau = "Sumatera";
                 break;
             case 2:
-                catatan[0].pengirim.pulau = "Jawa";
+                catatan[0].penerima.pulau = "Jawa";
                 break;
             case 3:
-                catatan[0].pengirim.pulau = "Kalimantan";
+                catatan[0].penerima.pulau = "Kalimantan";
                 break;
             case 4:
-                catatan[0].pengirim.pulau = "Sulawesi";
+                catatan[0].penerima.pulau = "Sulawesi";
                 break;
             case 5:
-                catatan[0].pengirim.pulau = "Papua";
+                catatan[0].penerima.pulau = "Papua";
                 break;
             case 6:
-                catatan[0].pengirim.pulau = "Bali";
+                catatan[0].penerima.pulau = "Bali";
                 break;
             default:
                 cout << "Sulit dipahami. Semoga kamu bisa memilih dengan benar." << endl;
@@ -112,8 +120,8 @@ int main(){
     getline(cin,catatan[0].barang.keterangan);
     cout << "Berat barang(kg)       : ";
     cin >> catatan[0].barang.berat;
-    cout << "------------------------------------------" << endl << endl;
-
+}
+void periksa_arsip(){
     cout << "==========================================" << endl;
     cout << "-----------------PENGIRIM-----------------" << endl;
     cout << "Nama Pengirim   : " << catatan[0].pengirim.nama << endl;
@@ -127,19 +135,67 @@ int main(){
     cout << "Nama/Keterangan barang : " << catatan[0].barang.keterangan << endl;
     cout << "Berat barang(kg)       : " << catatan[0].barang.berat << endl;
     cout << "------------------------------------------" << endl;
-    if(catatan[0].pengirim.pulau == "Sumatera" || catatan[0].pengirim.pulau == "sumatera"){
-        if(catatan[0].pengirim.pulau == catatan[0].pengirim.pulau){
-                catatan[0].tarif = 15000;
-        }else if(catatan[0].pengirim.pulau == "Jawa" || catatan[0].pengirim.pulau == "jawa" || catatan[0].pengirim.pulau == "Kalimantan" || catatan[0].pengirim.pulau == "kalimantan"){
+    if(catatan[0].pengirim.pulau == "Sumatera"){
+        if(catatan[0].penerima.pulau == catatan[0].pengirim.pulau){
+            catatan[0].tarif = 15000;
+        }else if(catatan[0].penerima.pulau == "Jawa" || catatan[0].penerima.pulau == "Kalimantan"){
             catatan[0].tarif = 40000;
-        }else if(catatan[0].pengirim.pulau == "Sulawesi" || catatan[0].pengirim.pulau == "sulawesi" || catatan[0].pengirim.pulau == "Bali" || catatan[0].pengirim.pulau == "bali"){
+        }else if(catatan[0].penerima.pulau == "Sulawesi" || catatan[0].penerima.pulau == "Bali"){
+            catatan[0].tarif = 70000;
+        }else{
+            catatan[0].tarif = 10000;
+        }
+    }else if(catatan[0].pengirim.pulau == "Jawa"){
+        if(catatan[0].penerima.pulau == catatan[0].pengirim.pulau){
+            catatan[0].tarif = 15000;
+        }else if(catatan[0].penerima.pulau == "Bali" || catatan[0].penerima.pulau == "Sumatera"){
+            catatan[0].tarif = 40000;
+        }else if(catatan[0].penerima.pulau == "Kalimantan" || catatan[0].penerima.pulau == "Sulawesi"){
+            catatan[0].tarif = 50000;
+        }else{
+            catatan[0].tarif = 70000;
+        }
+    }else if(catatan[0].pengirim.pulau == "Kalimantan"){
+        if(catatan[0].penerima.pulau == catatan[0].pengirim.pulau){
+            catatan[0].tarif = 15000;
+        }else if(catatan[0].penerima.pulau == "Sumatera" || catatan[0].penerima.pulau == "Sulawesi"){
+            catatan[0].tarif = 40000;
+        }else if(catatan[0].penerima.pulau == "Bali" || catatan[0].penerima.pulau == "Jawa"){
+            catatan[0].tarif = 50000;
+        }else{
+            catatan[0].tarif = 70000;
+        }
+    }else if(catatan[0].pengirim.pulau == "Sulawesi"){
+        if(catatan[0].penerima.pulau == catatan[0].pengirim.pulau){
+            catatan[0].tarif = 15000;
+        }else if(catatan[0].penerima.pulau == "Kalimantan" || catatan[0].penerima.pulau == "Papua"){
+            catatan[0].tarif = 40000;
+        }else if(catatan[0].penerima.pulau == "Bali" || catatan[0].penerima.pulau == "Jawa"){
+            catatan[0].tarif = 50000;
+        }else{
+            catatan[0].tarif = 70000;
+        }
+    }else if(catatan[0].pengirim.pulau == "Bali"){
+        if(catatan[0].penerima.pulau == catatan[0].pengirim.pulau){
+            catatan[0].tarif = 15000;
+        }else if(catatan[0].penerima.pulau == "Jawa"){
+            catatan[0].tarif = 40000;
+        }else if(catatan[0].penerima.pulau == "Kalimantan" || catatan[0].penerima.pulau == "Sulawesi"){
+            catatan[0].tarif = 50000;
+        }else{
+            catatan[0].tarif = 70000;
+        }
+    }else{
+        if(catatan[0].penerima.pulau == catatan[0].pengirim.pulau){
+            catatan[0].tarif = 15000;
+        }else if(catatan[0].penerima.pulau == "Sulawesi"){
+            catatan[0].tarif = 40000;
+        }else if(catatan[0].penerima.pulau == "Jawa" || catatan[0].penerima.pulau == "Kalimantan" || catatan[0].penerima.pulau == "Bali"){
             catatan[0].tarif = 70000;
         }else{
             catatan[0].tarif = 10000;
         }
     }
-    cout << "Total harga barang ";
-
-
-    return 0;
+    cout << "Tarif Antar pulau : Rp." << catatan[0].tarif << "/kg" << endl;
 }
+
