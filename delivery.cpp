@@ -212,15 +212,40 @@ void periksa_arsip(int n){
     catatan[n].total_tarif = catatan[n].tarif * catatan[n].barang.berat;
     cout << "Total harga        : Rp." << catatan[n].tarif << " x " << catatan[n].barang.berat << " kg" << endl;
     cout << "                   : Rp." << catatan[n].total_tarif << endl;
+    cout << "==========================================" << endl;
 }
 void pilih_1(){
     nomor = urutan(nomor);
+    char yn;
 
     while (true){
         input_data(nomor);
+
+        cout << endl;
+
         periksa_arsip(nomor);
-        break;
+
+        while(true){
+            cout << "Apakah data sudah benar [Y/N] : ";
+            cin >> yn;
+            if(yn == 'y' || yn == 'n' || yn == 'Y' || yn == 'N'){
+                break;
+            }else{
+                cout << "Sulit dipahami. Mohon Pilih dengan benar." << endl;
+                continue;
+            }
+        }
+
+        if(yn == 'y'){
+            cout << endl;
+            break;
+        }else{
+            cout << endl;
+            continue;
+        }
+
     }
+
     nomor = nomor + 1;
 }
 void menu(){
@@ -238,10 +263,13 @@ void menu(){
 
 
                 if (pilih == 1){
+                    cout << endl;
                     pilih_1();
                 }else if(pilih == 2){
+                    cout << endl;
                     cout << "Catatan nomor : ";
                     cin >> nomor;
+                    nomor--;
                     periksa_arsip(nomor);
                     cout << endl;
                 }else if(pilih == 3){
