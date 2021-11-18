@@ -236,7 +236,7 @@ void pilih_1(){
             }
         }
 
-        if(yn == 'y'){
+        if(yn == 'y' || yn == 'Y'){
             cout << endl;
             break;
         }else{
