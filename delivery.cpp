@@ -10,7 +10,7 @@ struct pnm{
     string nama, pulau, alamat;
 };
 struct brn{
-    string keterangan, jenis;
+    string keterangan, jenis, jemput;
     float berat;
 };
 struct pencatatan{
@@ -18,6 +18,7 @@ struct pencatatan{
     pnm penerima;
     brn barang;
     int tarif, total_tarif;
+    int tarif_jemput = 10000;
 }catatan[100];
 
 void input_data(int n);
@@ -135,6 +136,8 @@ void input_data(int n){
     cin >> catatan[n].barang.berat;
     cout << "Jenis Pengiriman (Standar / Express): ";
     cin >> catatan[n].barang.jenis;
+    cout << "Jemput paket dirumah [Ya/Tidak] : ";
+    cin >> catatan[n].barang.jemput;
 }
 void periksa_arsip(int n){
     cout << "==========================================" << endl;
@@ -147,9 +150,10 @@ void periksa_arsip(int n){
     cout << "Pulau Tujuan    : " << catatan[n].penerima.pulau << endl;
     cout << "Alamat Penerima : " << catatan[n].penerima.alamat << endl;
     cout << "------------------BARANG------------------" << endl;
-    cout << "Nama/Keterangan barang : " << catatan[n].barang.keterangan << endl;
-    cout << "Berat barang(kg)       : " << catatan[n].barang.berat << " kg" << endl;
-    cout << "Jenis Pengiriman       : " << catatan[n].barang.jenis << endl;
+    cout << "Nama/Keterangan barang  : " << catatan[n].barang.keterangan << endl;
+    cout << "Berat barang(kg)        : " << catatan[n].barang.berat << " kg" << endl;
+    cout << "Jenis Pengiriman        : " << catatan[n].barang.jenis << endl;
+    cout << "Jemput paket dirumah    : " << catatan[n].barang.jemput << endl;
     cout << "------------------------------------------" << endl;
     if (catatan[n].barang.jenis == "Standar"){
         if(catatan[n].pengirim.pulau == "Sumatera"){
@@ -276,11 +280,20 @@ void periksa_arsip(int n){
             }
         }
     }
-    cout << "Tarif Antar pulau  : Rp." << catatan[n].tarif << "/kg" << endl;
-    catatan[n].total_tarif = catatan[n].tarif * catatan[n].barang.berat;
-    cout << "Total harga        : Rp." << catatan[n].tarif << " x " << catatan[n].barang.berat << " kg" << endl;
-    cout << "                   : Rp." << catatan[n].total_tarif << endl;
-    cout << "==========================================" << endl;
+    if (catatan[n].barang.jemput == "Ya"){
+        cout << "Tarif Antar pulau  : Rp." << catatan[n].tarif << "/kg" << endl;
+        cout << "Tarif Jemput barang dirumah  : Rp." << catatan[n].tarif_jemput << endl;
+        catatan[n].total_tarif = catatan[n].tarif * catatan[n].barang.berat + catatan[n].tarif_jemput;
+        cout << "Total harga        : Rp." << catatan[n].tarif << " x " << catatan[n].barang.berat << " kg" << " + Rp." << catatan[n].tarif_jemput << endl;
+        cout << "                   : Rp." << catatan[n].total_tarif << endl;
+        cout << "==========================================" << endl;
+    } else{
+        cout << "Tarif Antar pulau  : Rp." << catatan[n].tarif << "/kg" << endl;
+        catatan[n].total_tarif = catatan[n].tarif * catatan[n].barang.berat;
+        cout << "Total harga        : Rp." << catatan[n].tarif << " x " << catatan[n].barang.berat << " kg" << endl;
+        cout << "                   : Rp." << catatan[n].total_tarif << endl;
+        cout << "==========================================" << endl;
+        }
 }
 void pilih_1(){
     nomor = urutan(nomor);
@@ -349,3 +362,4 @@ void menu(){
                 }
         }
 }
+
